@@ -61,6 +61,8 @@ export async function mealsRoutes(app: FastifyInstance) {
       isOnDiet,
       date: date?.getTime(),
     })
+
+    return res.status(204).send()
   })
 
   app.get("/:mealId", { preHandler: [checkSessionIdExists] }, async (req, res) => {
@@ -85,6 +87,8 @@ export async function mealsRoutes(app: FastifyInstance) {
     await knex("meals").delete().where({
       id: mealId,
     })
+
+    return res.status(204).send()
   })
 
   app.get("/metrics", { preHandler: [checkSessionIdExists] }, async (req, res) => {

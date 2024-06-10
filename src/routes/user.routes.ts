@@ -11,10 +11,10 @@ export async function userRoute(app: FastifyInstance) {
       email: z.string().email()
     })
 
-    const sessionId = req.cookies.sessionId
+    let sessionId = req.cookies.sessionId
 
     if (!sessionId) {
-      const sessionId = randomUUID()
+      sessionId = randomUUID()
       res.setCookie("sessionId", sessionId, {
         path: "/",
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
@@ -35,7 +35,7 @@ export async function userRoute(app: FastifyInstance) {
       session_id: sessionId
     })
 
-    return res.status(200).send()
+    return res.status(201).send()
   })
 
   app.get("/", async (req, res) =>{
